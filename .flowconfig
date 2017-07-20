@@ -1,0 +1,33 @@
+[ignore]
+
+; Ignore unexpected extra "@providesModule"
+.*/node_modules/.*/node_modules/fbjs/.*
+
+.*/karma/node_modules/.*
+.*/node_modules/mapbox-gl-style-spec.*
+.*/node_modules/flow-bin.*
+.*/node_modules/flow-runtime.*
+.*/node_modules/react-hot-loader.*
+.*/node_modules/webpack-dev-server.*
+.*/node_modules/webpack.*
+.*/node_modules/babel.*
+.*/node_modules/unflowify.*
+.*/node_modules/jsonlint.*
+.*/node_modules/lunr.*
+.*/node_modules/eslint.*
+.*/node_modules/react-infinite.*
+
+.*bower.*
+
+[include]
+
+[libs]
+
+flow/
+
+[options]
+
+module.name_mapper='.*\(.scss\)' -> 'empty/object'
+
+[version]
+^0.50.0
