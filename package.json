@@ -11,7 +11,7 @@
     "flow-typed": "./node_modules/.bin/flow-typed install --overwrite",
     "test": "yarn lint && yarn test:js",
     "test:all": "yarn test && yarn test:js",
-    "test:js": "cross-env NODE_ENV=test jest tests/render.test.js",
+    "test:js": "cross-env NODE_ENV=test jest tests/hydrator.test.js",
     "lint": "npm run lint:js && npm run lint:flow",
     "lint:js": "./node_modules/.bin/eslint -c ./.eslintrc --no-eslintrc --fix .",
     "lint:flow": "./node_modules/.bin/flow --show-all-errors"
@@ -51,6 +51,10 @@
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-test-renderer": "^15.6.1",
+    "uuid": "^3.1.0",
     "yarn": "^0.27.5"
+  },
+  "dependencies": {
+    "cross-env": "^5.0.1"
   }
 }
