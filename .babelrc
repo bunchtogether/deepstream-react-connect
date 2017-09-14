@@ -4,8 +4,6 @@
     "react",
     "stage-0"
   ],
-  "plugins": [
-  ],
   "ignore": [],
   "env": {
     "test": {

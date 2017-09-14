@@ -17,6 +17,8 @@
 .*/node_modules/eslint.*
 .*/node_modules/react-infinite.*
 
+.*/node_modules/deepstream.io/test/.*
+
 .*bower.*
 
 [include]
@@ -28,6 +30,3 @@ flow/
 [options]
 
 module.name_mapper='.*\(.scss\)' -> 'empty/object'
-
-[version]
-^0.50.0

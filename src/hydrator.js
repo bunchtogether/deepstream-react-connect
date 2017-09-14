@@ -1,5 +1,5 @@
 // @flow 
-
+/*
 import React, { createElement } from 'react';
 
 export type Instance = {
@@ -32,3 +32,4 @@ export default class Hydrator { // eslint-disable-line react/prefer-stateless-fu
     );
   }
 }
+*/

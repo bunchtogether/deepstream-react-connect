@@ -1,5 +1,5 @@
 // @flow
-
+/*
 import uuid from 'uuid';
 import type { Instance } from '../../src/hydrator';
 
@@ -29,3 +29,4 @@ export const addInstanceKeys = (instance: Instance): Instance => ({
   props: Object.assign({}, instance.props, { key: uuid.v4() }),
   children: instance.children ? instance.children.map(addInstanceKeys) : null,
 });
+*/
