@@ -28,7 +28,6 @@ afterAll(async () => {
   await server.shutdown();
 });
 
-
 test('Wrap a component', async () => {
   const parameterNameA = generateParameterName();
   const parameterNameB = generateParameterName();
@@ -51,9 +50,9 @@ test('Wrap a component', async () => {
   const names = [`${nameA}/:${parameterNameA}`, `${nameB}/:${parameterNameB}`, `${nameC}/:${parameterNameC}`];
   const propName = uuid.v4();
   const props = { [propName]: [defaultValue, names] };
-  const WrappedTestComponent = connect(client, parameters, TestComponent);
-  const wrappedTestComponent = renderer.create(createElement(WrappedTestComponent, props));
-  const getComputedProps = () => wrappedTestComponent.toJSON().props;
+  const ConnectedTestComponent = connect(client, parameters, TestComponent);
+  const connectedTestComponent = renderer.create(createElement(ConnectedTestComponent, props));
+  const getComputedProps = () => connectedTestComponent.toJSON().props;
   expect(getComputedProps()).toEqual({ [propName]: defaultValue });
   await client.setData(`${nameC}/${parameterValueC}`, { value: valueC });
   expect(getComputedProps()).toEqual({ [propName]: valueC });

@@ -13,7 +13,9 @@ type State = {
   [string]:any
 };
 
-export default (client:DeepstreamClient, parameters:{[string]:string}, Component:ComponentType<*>):ComponentType<*> => class WrappedComponent extends React.PureComponent<Props, State> {
+export default (client:DeepstreamClient, parameters:{[string]:string}, Component:ComponentType<*>):ComponentType<*> => class ConnectedComponent extends React.PureComponent<Props, State> {
+  static displayName = `Connected${Component.displayName || Component.name}`;
+
   constructor(props: Props) {
     super(props);
     this.state = {};

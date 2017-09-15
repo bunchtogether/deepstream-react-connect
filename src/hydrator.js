@@ -13,14 +13,14 @@ export class Text extends React.Component<{value:string}> { // eslint-disable-li
 }
 
 function getElementType(element:Element<*>) {
+  if (typeof (element.type.displayName) === 'string') {
+    return element.type.displayName;
+  }
   if (typeof (element.type) === 'string') {
     return element.type;
   }
   if (typeof (element.type.name) === 'string') {
     return element.type.name;
-  }
-  if (typeof (element.type.displayName) === 'string') {
-    return element.type.displayName;
   }
   throw new Error('Could not get display name of element');
 }
