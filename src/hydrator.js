@@ -8,7 +8,7 @@ import React, { createElement } from 'react';
 
 export class Text extends React.Component<{value:string}> { // eslint-disable-line react/prefer-stateless-function
   render() {
-    return null;
+    return this.props.value;
   }
 }
 
