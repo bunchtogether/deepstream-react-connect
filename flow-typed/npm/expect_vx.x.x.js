@@ -1,4 +1,4 @@
-// flow-typed signature: 7b21102d8f1ee522e5e16d7bd9514eef
+// flow-typed signature: c661cf133a8a11e9184a20dfd2713934
 // flow-typed version: <<STUB>>/expect_v^21.1.0/flow_v0.54.1
 
 /**
@@ -22,60 +22,81 @@ declare module 'expect' {
  * require those files directly. Feel free to delete any files that aren't
  * needed.
  */
-declare module 'expect/lib/assert' {
+declare module 'expect/build-es5/index' {
   declare module.exports: any;
 }
 
-declare module 'expect/lib/Expectation' {
+declare module 'expect/build/asymmetric_matchers' {
   declare module.exports: any;
 }
 
-declare module 'expect/lib/extend' {
+declare module 'expect/build/extract_expected_assertions_errors' {
   declare module.exports: any;
 }
 
-declare module 'expect/lib/index' {
+declare module 'expect/build/fake_chalk' {
   declare module.exports: any;
 }
 
-declare module 'expect/lib/SpyUtils' {
+declare module 'expect/build/index' {
   declare module.exports: any;
 }
 
-declare module 'expect/lib/TestUtils' {
+declare module 'expect/build/jasmine_utils' {
   declare module.exports: any;
 }
 
-declare module 'expect/umd/expect' {
+declare module 'expect/build/jest_matchers_object' {
   declare module.exports: any;
 }
 
-declare module 'expect/umd/expect.min' {
+declare module 'expect/build/matchers' {
+  declare module.exports: any;
+}
+
+declare module 'expect/build/spy_matchers' {
+  declare module.exports: any;
+}
+
+declare module 'expect/build/to_throw_matchers' {
+  declare module.exports: any;
+}
+
+declare module 'expect/build/utils' {
   declare module.exports: any;
 }
 
 // Filename aliases
-declare module 'expect/lib/assert.js' {
-  declare module.exports: $Exports<'expect/lib/assert'>;
+declare module 'expect/build-es5/index.js' {
+  declare module.exports: $Exports<'expect/build-es5/index'>;
 }
-declare module 'expect/lib/Expectation.js' {
-  declare module.exports: $Exports<'expect/lib/Expectation'>;
+declare module 'expect/build/asymmetric_matchers.js' {
+  declare module.exports: $Exports<'expect/build/asymmetric_matchers'>;
 }
-declare module 'expect/lib/extend.js' {
-  declare module.exports: $Exports<'expect/lib/extend'>;
+declare module 'expect/build/extract_expected_assertions_errors.js' {
+  declare module.exports: $Exports<'expect/build/extract_expected_assertions_errors'>;
 }
-declare module 'expect/lib/index.js' {
-  declare module.exports: $Exports<'expect/lib/index'>;
+declare module 'expect/build/fake_chalk.js' {
+  declare module.exports: $Exports<'expect/build/fake_chalk'>;
 }
-declare module 'expect/lib/SpyUtils.js' {
-  declare module.exports: $Exports<'expect/lib/SpyUtils'>;
+declare module 'expect/build/index.js' {
+  declare module.exports: $Exports<'expect/build/index'>;
 }
-declare module 'expect/lib/TestUtils.js' {
-  declare module.exports: $Exports<'expect/lib/TestUtils'>;
+declare module 'expect/build/jasmine_utils.js' {
+  declare module.exports: $Exports<'expect/build/jasmine_utils'>;
 }
-declare module 'expect/umd/expect.js' {
-  declare module.exports: $Exports<'expect/umd/expect'>;
+declare module 'expect/build/jest_matchers_object.js' {
+  declare module.exports: $Exports<'expect/build/jest_matchers_object'>;
 }
-declare module 'expect/umd/expect.min.js' {
-  declare module.exports: $Exports<'expect/umd/expect.min'>;
+declare module 'expect/build/matchers.js' {
+  declare module.exports: $Exports<'expect/build/matchers'>;
+}
+declare module 'expect/build/spy_matchers.js' {
+  declare module.exports: $Exports<'expect/build/spy_matchers'>;
+}
+declare module 'expect/build/to_throw_matchers.js' {
+  declare module.exports: $Exports<'expect/build/to_throw_matchers'>;
+}
+declare module 'expect/build/utils.js' {
+  declare module.exports: $Exports<'expect/build/utils'>;
 }

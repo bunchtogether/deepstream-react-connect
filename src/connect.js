@@ -14,12 +14,6 @@ type State = {
 };
 
 export default (client:DeepstreamClient, parameters:{[string]:string}, Component:ComponentType<*>):ComponentType<*> => class WrappedComponent extends React.PureComponent<Props, State> {
-  subscriptions: {
-    [string]: {
-      addCallback:Function,
-      close: Function
-    }
-  };
   constructor(props: Props) {
     super(props);
     this.state = {};
@@ -41,6 +35,12 @@ export default (client:DeepstreamClient, parameters:{[string]:string}, Component
   componentWillUnmount() {
     Object.keys(this.subscriptions).forEach((name) => this.subscriptions[name].close());
   }
+  subscriptions: {
+    [string]: {
+      addCallback:Function,
+      close: Function
+    }
+  };
   render() {
     return <Component {...this.state} />;
   }

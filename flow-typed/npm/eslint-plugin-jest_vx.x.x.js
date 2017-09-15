@@ -1,4 +1,4 @@
-// flow-typed signature: 75d4f9167567e75ab1dac34c0b518c25
+// flow-typed signature: 57977ff9e78a58d06987c21293590ba3
 // flow-typed version: <<STUB>>/eslint-plugin-jest_v^21.1.0/flow_v0.54.1
 
 /**
@@ -26,15 +26,15 @@ declare module 'eslint-plugin-jest/build/index' {
   declare module.exports: any;
 }
 
-declare module 'eslint-plugin-jest/build/rules/no-disabled-tests' {
+declare module 'eslint-plugin-jest/build/rules/no_disabled_tests' {
   declare module.exports: any;
 }
 
-declare module 'eslint-plugin-jest/build/rules/no-focused-tests' {
+declare module 'eslint-plugin-jest/build/rules/no_focused_tests' {
   declare module.exports: any;
 }
 
-declare module 'eslint-plugin-jest/build/rules/no-identical-title' {
+declare module 'eslint-plugin-jest/build/rules/no_identical_title' {
   declare module.exports: any;
 }
 
@@ -42,7 +42,7 @@ declare module 'eslint-plugin-jest/build/rules/types' {
   declare module.exports: any;
 }
 
-declare module 'eslint-plugin-jest/build/rules/valid-expect' {
+declare module 'eslint-plugin-jest/build/rules/valid_expect' {
   declare module.exports: any;
 }
 
@@ -50,18 +50,18 @@ declare module 'eslint-plugin-jest/build/rules/valid-expect' {
 declare module 'eslint-plugin-jest/build/index.js' {
   declare module.exports: $Exports<'eslint-plugin-jest/build/index'>;
 }
-declare module 'eslint-plugin-jest/build/rules/no-disabled-tests.js' {
-  declare module.exports: $Exports<'eslint-plugin-jest/build/rules/no-disabled-tests'>;
+declare module 'eslint-plugin-jest/build/rules/no_disabled_tests.js' {
+  declare module.exports: $Exports<'eslint-plugin-jest/build/rules/no_disabled_tests'>;
 }
-declare module 'eslint-plugin-jest/build/rules/no-focused-tests.js' {
-  declare module.exports: $Exports<'eslint-plugin-jest/build/rules/no-focused-tests'>;
+declare module 'eslint-plugin-jest/build/rules/no_focused_tests.js' {
+  declare module.exports: $Exports<'eslint-plugin-jest/build/rules/no_focused_tests'>;
 }
-declare module 'eslint-plugin-jest/build/rules/no-identical-title.js' {
-  declare module.exports: $Exports<'eslint-plugin-jest/build/rules/no-identical-title'>;
+declare module 'eslint-plugin-jest/build/rules/no_identical_title.js' {
+  declare module.exports: $Exports<'eslint-plugin-jest/build/rules/no_identical_title'>;
 }
 declare module 'eslint-plugin-jest/build/rules/types.js' {
   declare module.exports: $Exports<'eslint-plugin-jest/build/rules/types'>;
 }
-declare module 'eslint-plugin-jest/build/rules/valid-expect.js' {
-  declare module.exports: $Exports<'eslint-plugin-jest/build/rules/valid-expect'>;
+declare module 'eslint-plugin-jest/build/rules/valid_expect.js' {
+  declare module.exports: $Exports<'eslint-plugin-jest/build/rules/valid_expect'>;
 }
