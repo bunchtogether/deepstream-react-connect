@@ -15,7 +15,7 @@ export const addParameters = (name: string, parameters:{[string]:string}) => {
   return transformedName;
 };
 
-export const subscribe = (client:DeepstreamClient, defaultValue: any, names:Array<string>, parameters:{[string]:string}):{addCallback:Function, close: Function} => {
+export const subscribe = (client:DeepstreamClient, defaultValue: any, names:Array<string>, parameters?:{[string]:string} = {}):{addCallback:Function, close: Function} => {
   const records = [];
   names.forEach((name) => {
     try {
