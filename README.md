@@ -24,9 +24,7 @@ const parameters = { user_id, device_id };
 
 const ConnectedExampleComponent = connect(client, parameters, ExampleComponent);
 
-const defaultText = "Default Text";
-
-const element = (<ConnectedExampleComponent text=[defaultText, [":device_id/text", ":user_id/text"]] />);
+const element = (<ConnectedExampleComponent text=["Default Text", [":device_id/text", ":user_id/text"]] />);
 
 ReactDOM.render(element, document.getElementById("container"));
 // Renders <div>Default Text</div>
@@ -34,7 +32,7 @@ ReactDOM.render(element, document.getElementById("container"));
 client.record.setData(`${user_id}/text`, {value: "User Text"});
 // Renders <div>User Text</div>
 
-client.record.setData(`${user_id}/text`, {value: "User Text"});
+client.record.setData(`${user_id}/text`, {value: "Device Text"});
 // Renders <div>Device Text</div>
 ```
 
