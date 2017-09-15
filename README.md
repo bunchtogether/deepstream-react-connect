@@ -32,7 +32,7 @@ ReactDOM.render(element, document.getElementById("container"));
 client.record.setData(`${user_id}/text`, {value: "User Text"});
 // Renders <div>User Text</div>
 
-client.record.setData(`${user_id}/text`, {value: "Device Text"});
+client.record.setData(`${device_id}/text`, {value: "Device Text"});
 // Renders <div>Device Text</div>
 ```
 
