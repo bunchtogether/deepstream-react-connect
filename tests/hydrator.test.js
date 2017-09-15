@@ -63,3 +63,13 @@ test('Dehydrate and hydrate an element', async () => {
   expect(elementData).toEqual(rehydratedElementData);
 });
 
+test('Dehydrate and hydrate an with text nodes.', async () => {
+  const element = <div>A<span>B</span></div>;
+  const elementData = renderer.create(element).toJSON();
+  const hydrator = new Hydrator(client, [TestComponentA, TestComponentB]);
+  const key = await hydrator.dehydrate(element);
+  const rehydratedElement = await hydrator.hydrate(key);
+  const rehydratedElementData = renderer.create(rehydratedElement).toJSON();
+  expect(elementData).toEqual(rehydratedElementData);
+});
+
