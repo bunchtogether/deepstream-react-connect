@@ -9,7 +9,7 @@
     "build": "rm -rf ./dist; babel ./src --out-dir ./dist;",
     "flow-typed": "./node_modules/.bin/flow-typed install --overwrite",
     "test": "yarn lint && yarn test:js",
-    "test:js": "cross-env NODE_ENV=test jest tests/*.test.js",
+    "test:js": "cross-env NODE_ENV=test jest --runInBand tests/*.test.js",
     "lint": "npm run lint:js && npm run lint:flow",
     "lint:js": "./node_modules/.bin/eslint -c ./.eslintrc --no-eslintrc --fix .",
     "lint:flow": "./node_modules/.bin/flow --show-all-errors"
