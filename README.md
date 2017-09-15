@@ -15,7 +15,7 @@ class ExampleComponent extends React.Component {
   }
 }
 
-const client = deepstream("127.0.0.1:6020");
+const client = deepstream("127.0.0.1:6020").login();
 
 const user_id = "user-A";
 const device_id = "device-A";
@@ -49,7 +49,7 @@ class ExampleComponent extends React.Component {
   }
 }
 
-const client = deepstream("127.0.0.1:6020");
+const client = deepstream("127.0.0.1:6020").login();
 
 const hydrator = new Hydrator(client, [ExampleComponent]);
 
