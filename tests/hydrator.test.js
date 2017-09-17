@@ -6,7 +6,7 @@ import renderer from 'react-test-renderer';
 import uuid from 'uuid';
 import React, { createElement } from 'react';
 import { sample } from 'lodash';
-import { Hydrator, Text } from '../src';
+import { Hydrator } from '../src';
 import { getClient, getServer } from './lib/deepstream';
 
 class TestComponentA extends React.Component<*, *> { // eslint-disable-line react/prefer-stateless-function,react/no-multi-comp
@@ -62,7 +62,7 @@ test('Dehydrate and hydrate an element', async () => {
   expect(elementData).toEqual(rehydratedElementData);
 });
 
-test('Dehydrate and hydrate an with text nodes.', async () => {
+test('Dehydrate and hydrate an element with text nodes.', async () => {
   const element = <div>A<span>B</span></div>;
   const elementData = renderer.create(element).toJSON();
   const hydrator = new Hydrator(client, [TestComponentA, TestComponentB]);
@@ -72,13 +72,16 @@ test('Dehydrate and hydrate an with text nodes.', async () => {
   expect(elementData).toEqual(rehydratedElementData);
 });
 
-test('Name a text node', async () => {
-  const element = <div><Text value="Hello!" /></div>;
-  const elementData = renderer.create(element).toJSON();
-  const hydrator = new Hydrator(client, [TestComponentA, TestComponentB]);
-  const key = await hydrator.dehydrate(element);
+test('Update the value of a node by key.', async () => {
+  const textKey = uuid.v4();
+  const defaultTextValue = uuid.v4();
+  const hydrator = new Hydrator(client, []);
+  const key = await hydrator.dehydrate(<div><span key={textKey}>{defaultTextValue}</span></div>);
+  const updatedTextValue = uuid.v4();
+  await hydrator.dehydrate(<span key={textKey}>{updatedTextValue}</span>);
+  const updatedElementData = renderer.create(<div><span>{updatedTextValue}</span></div>).toJSON();
   const rehydratedElement = await hydrator.hydrate(key);
   const rehydratedElementData = renderer.create(rehydratedElement).toJSON();
-  expect(elementData).toEqual(rehydratedElementData);
+  expect(updatedElementData).toEqual(rehydratedElementData);
 });
 

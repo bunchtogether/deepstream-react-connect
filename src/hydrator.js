@@ -6,9 +6,9 @@ import uuid from 'uuid';
 import DeepstreamClient from 'deepstream.io-client-js';
 import React, { createElement } from 'react';
 
-export class Text extends React.Component<{value:string}> { // eslint-disable-line react/prefer-stateless-function
+class Text extends React.Component<{value:string}> { // eslint-disable-line react/prefer-stateless-function
   render() {
-    return this.props.value;
+    return null;
   }
 }
 
@@ -39,7 +39,7 @@ export default class Hydrator {
     const response = {};
     response.type = getElementType(element);
     response.props = Object.assign({}, element.props);
-    response.props.key = response.props.key || uuid.v4();
+    response.key = response.props.key = element.key === null ? uuid.v4() : element.key.toString();
     const childPromises = [];
     React.Children.map(element.props.children, (child) => {
       if (React.isValidElement(child)) {
@@ -50,7 +50,7 @@ export default class Hydrator {
     });
     response.props.children = await Promise.all(childPromises);
     await new Promise((resolve, reject) => {
-      this.client.record.setData(response.props.key, response, (error) => {
+      this.client.record.setData(response.key, response, (error) => {
         if (error) {
           reject(error);
         } else {
@@ -58,7 +58,7 @@ export default class Hydrator {
         }
       });
     });
-    return response.props.key;
+    return response.key;
   }
   async hydrate(key:string):Promise<Element<*> | string> {
     const response = await new Promise((resolve, reject) => {
