@@ -1,6 +1,7 @@
 // @flow 
 
 import DeepstreamClient from 'deepstream.io-client-js';
+import murmurhash from './murmurhash';
 
 const parameterRegex = /(^|\/):[a-z_]\/?/;
 
@@ -17,10 +18,13 @@ export const addParameters = (name: string, parameters:{[string]:string}) => {
 
 export const subscribe = (client:DeepstreamClient, defaultValue: any, names:Array<string>, parameters?:{[string]:string} = {}):{addCallback:Function, close: Function} => {
   const records = [];
+  const cacheKeyValues = [defaultValue];
   names.forEach((name) => {
     try {
       const transformedName = addParameters(name, parameters);
-      records.push(client.record.getRecord(transformedName));
+      const record = client.record.getRecord(transformedName);
+      cacheKeyValues.push(transformedName);
+      records.push(record);
     } catch (error) {
       if (error.message === 'Unable to add parameters.') {
         return;
@@ -28,8 +32,12 @@ export const subscribe = (client:DeepstreamClient, defaultValue: any, names:Arra
       throw error;
     }
   });
+  let useCache = true;
+  const cacheKey = murmurhash(JSON.stringify(cacheKeyValues), 1).toString(36);
+  const localStorageValue = localStorage.getItem(cacheKey);
+  let value = localStorageValue ? JSON.parse(localStorageValue) : defaultValue;
   const recordValues = new Array(records.length);
-  let value = defaultValue;
+  const recordsReady = records.map(() => false);
   const callbacks = [];
   const updateValue = ():void => {
     for (let i = 0; i < recordValues.length; i += 1) {
@@ -39,12 +47,20 @@ export const subscribe = (client:DeepstreamClient, defaultValue: any, names:Arra
         return;
       }
     }
+    if (useCache) {
+      callbacks.forEach((callback) => callback(value));
+      return;
+    }
     if (defaultValue !== value) {
       value = defaultValue;
       callbacks.forEach((callback) => callback(value));
     }
   };
   records.forEach((record, index) => {
+    record.once('ready', () => {
+      recordsReady[index] = true;
+      useCache = !(recordsReady.reduce((allAreReady, isReady) => allAreReady && isReady, true));
+    });
     record.once('delete', () => {
       delete recordValues[index];
       updateValue();
@@ -58,6 +74,13 @@ export const subscribe = (client:DeepstreamClient, defaultValue: any, names:Arra
     callbacks.push(callback);
     callback(value);
   };
+  addCallback((valueToCache) => {
+    if (!useCache) {
+      setImmediate(() => {
+        localStorage.setItem(cacheKey, JSON.stringify(valueToCache));
+      });
+    }
+  });
   const close = () => Promise.all(records.map(async (record) => {
     if (record.isDestroyed) {
       return;
@@ -73,5 +96,6 @@ export const subscribe = (client:DeepstreamClient, defaultValue: any, names:Arra
       record.discard();
     });
   }));
+  updateValue();
   return { addCallback, close };
 };

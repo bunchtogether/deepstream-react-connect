@@ -58,10 +58,17 @@ const element = (<ExampleComponent key="exampleKey"><span>Example Text</span></E
 const dehydrateThenRehydrate = async () => {
   const key = await hydrator.dehydrate(component);
   // key === "exampleKey"
-  const rehydratedElement = await hydrator.hydrate(key);
-  // rehydratedElement == element
-  ReactDOM.render(rehydratedElement, document.getElementById("container"));
-  // Renders <div><span>Example Text</span></div>
+  const unsubscribeHydrator = hydrator.hydrate(key, (rehydratedElement) => {
+    // Will check cache and return null while loading
+    if(rehydratedElement !== null) {
+      return;
+    }
+    // rehydratedElement == element
+    ReactDOM.render(rehydratedElement, document.getElementById("container"));
+    // Renders <div><span>Example Text</span></div>  
+    unsubscribeHydrator(); 
+  });
+
 }
 
 dehydrateThenRehydrate();

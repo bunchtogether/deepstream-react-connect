@@ -21,6 +21,7 @@ afterAll(async () => {
   await server.shutdown();
 });
 
+
 test('Should substitute parameters in a Deepstream record name.', () => {
   const parameterNameA = generateParameterName();
   const parameterNameB = generateParameterName();
@@ -97,5 +98,31 @@ test('Should not resolve from Deepstream records with missing parameters.', asyn
   await client.setData(`${nameA}/${parameterValueA}`, { value: valueA });
   expect(resolvedValue).toEqual(defaultValue);
   await subscription.close();
+});
+
+
+test('Should cache values.', async () => {
+  const defaultValue = uuid.v4();
+  const valueA = uuid.v4();
+  const nameA = uuid.v4();
+  const names = [`${nameA}`];
+  const subscription = subscribe(client, defaultValue, names, {});
+  const valuePromise = new Promise((resolve) => {
+    subscription.addCallback((value:any) => {
+      if (value === valueA) {
+        resolve();
+      }
+    });
+  });
+  await client.setData(`${nameA}`, { value: valueA });
+  await valuePromise;
+  await subscription.close();
+  const cachedSubscription = subscribe(client, defaultValue, names, {});
+  let resolvedValue;
+  cachedSubscription.addCallback((value:any) => {
+    resolvedValue = value;
+  });
+  expect(resolvedValue).toEqual(valueA);
+  await cachedSubscription.close();
 });
 

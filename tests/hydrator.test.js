@@ -2,12 +2,14 @@
 
 import type { Element } from 'react';
 import expect from 'expect';
+import deepEqual from 'deep-equal';
 import renderer from 'react-test-renderer';
 import uuid from 'uuid';
 import React, { createElement } from 'react';
 import { sample } from 'lodash';
 import { Hydrator } from '../src';
 import { getClient, getServer } from './lib/deepstream';
+
 
 class TestComponentA extends React.Component<*, *> { // eslint-disable-line react/prefer-stateless-function,react/no-multi-comp
   render() {
@@ -57,19 +59,38 @@ test('Dehydrate and hydrate an element', async () => {
   const elementData = renderer.create(element).toJSON();
   const hydrator = new Hydrator(client, [TestComponentA, TestComponentB]);
   const key = await hydrator.dehydrate(element);
-  const rehydratedElement = await hydrator.hydrate(key);
-  const rehydratedElementData = renderer.create(rehydratedElement).toJSON();
-  expect(elementData).toEqual(rehydratedElementData);
+  await new Promise((resolve) => {
+    const unsubscribeHydrator = hydrator.hydrate(key, async (rehydratedElement) => {
+      if (rehydratedElement === null) {
+        return;
+      }
+      const rehydratedElementData = renderer.create(rehydratedElement).toJSON();
+      if (deepEqual(elementData, rehydratedElementData)) {
+        await unsubscribeHydrator();
+        resolve();
+      }
+    });
+  });
 });
+
 
 test('Dehydrate and hydrate an element with text nodes.', async () => {
   const element = <div>A<span>B</span></div>;
   const elementData = renderer.create(element).toJSON();
   const hydrator = new Hydrator(client, [TestComponentA, TestComponentB]);
   const key = await hydrator.dehydrate(element);
-  const rehydratedElement = await hydrator.hydrate(key);
-  const rehydratedElementData = renderer.create(rehydratedElement).toJSON();
-  expect(elementData).toEqual(rehydratedElementData);
+  await new Promise((resolve) => {
+    const unsubscribeHydrator = hydrator.hydrate(key, async (rehydratedElement) => {
+      if (rehydratedElement === null) {
+        return;
+      }
+      const rehydratedElementData = renderer.create(rehydratedElement).toJSON();
+      if (deepEqual(elementData, rehydratedElementData)) {
+        await unsubscribeHydrator();
+        resolve();
+      }
+    });
+  });
 });
 
 test('Update the value of a node by key.', async () => {
@@ -80,8 +101,49 @@ test('Update the value of a node by key.', async () => {
   const updatedTextValue = uuid.v4();
   await hydrator.dehydrate(<span key={textKey}>{updatedTextValue}</span>);
   const updatedElementData = renderer.create(<div><span>{updatedTextValue}</span></div>).toJSON();
-  const rehydratedElement = await hydrator.hydrate(key);
-  const rehydratedElementData = renderer.create(rehydratedElement).toJSON();
-  expect(updatedElementData).toEqual(rehydratedElementData);
+  await new Promise((resolve) => {
+    const unsubscribeHydrator = hydrator.hydrate(key, async (rehydratedElement) => {
+      if (rehydratedElement === null) {
+        return;
+      }
+      const rehydratedElementData = renderer.create(rehydratedElement).toJSON();
+      if (deepEqual(updatedElementData, rehydratedElementData)) {
+        await unsubscribeHydrator();
+        resolve();
+      }
+    });
+  });
+});
+
+
+test('Get cached node', async () => {
+  const key = uuid.v4();
+  const element = <div key={key}>{uuid.v4()}</div>;
+  const elementData = renderer.create(element).toJSON();
+  const hydrator = new Hydrator(client, []);
+  await hydrator.dehydrate(element);
+  await new Promise((resolve) => {
+    const unsubscribeHydrator = hydrator.hydrate(key, async (rehydratedElement) => {
+      if (rehydratedElement === null) {
+        return;
+      }
+      const rehydratedElementData = renderer.create(rehydratedElement).toJSON();
+      if (deepEqual(elementData, rehydratedElementData)) {
+        await unsubscribeHydrator();
+        resolve();
+      }
+    });
+  });
+  await new Promise((resolve) => {
+    const unsubscribeHydrator = hydrator.hydrate(key, async (rehydratedElement) => {
+      if (rehydratedElement === null) {
+        return;
+      }
+      const rehydratedElementData = renderer.create(rehydratedElement).toJSON();
+      await unsubscribeHydrator();
+      expect(elementData).toEqual(rehydratedElementData);
+      resolve();
+    });
+  });
 });
 

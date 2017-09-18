@@ -45,4 +45,4 @@ flow
 **/dist
 **/vendor
 
-
+src/lib/murmurhash.js
