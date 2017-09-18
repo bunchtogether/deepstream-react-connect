@@ -87,7 +87,7 @@ export default class Hydrator {
       delete props.children;
       await Promise.all(Object.keys(children).map(async (childKey) => {
         if (value.props.children.indexOf(childKey) === -1) {
-          const unsubscribeChild = childUnsubscribes[childKey].unsubscribe;
+          const unsubscribeChild = childUnsubscribes[childKey];
           delete childUnsubscribes[childKey];
           delete children[childKey];
           await unsubscribeChild();
