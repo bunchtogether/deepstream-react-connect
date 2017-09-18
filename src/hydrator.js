@@ -65,7 +65,7 @@ export default class Hydrator {
     const children = {};
     const childUnsubscribes = {};
     const valueListener = async (value:any, setCache: boolean = true) => {
-      if (!value && !localStorageValue) {
+      if (!value) {
         callback(null);
         return;
       }
