@@ -69,6 +69,10 @@ export default class Hydrator {
         callback(null);
         return;
       }
+      if (Object.keys(value).length === 0) {
+        callback(null);
+        return;
+      }
       if (setCache) {
         setImmediate(() => {
           localStorage.setItem(key, JSON.stringify(value));
