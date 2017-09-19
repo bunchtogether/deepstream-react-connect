@@ -3,7 +3,7 @@
 import type { Element, ComponentType } from 'react';
 import DeepstreamClient from 'deepstream.io-client-js';
 import React, { createElement } from 'react';
-import murmurhash from './lib/murmurhash';
+import murmurhash from 'murmurhash3js';
 
 class Text extends React.Component<{value:string}> { // eslint-disable-line react/prefer-stateless-function
   render() {
@@ -47,7 +47,7 @@ export default class Hydrator {
       }
     });
     response.props.children = await Promise.all(childPromises);
-    response.key = response.props.key = element.key === null ? murmurhash(JSON.stringify(response), 1).toString(36) : element.key.toString();
+    response.key = response.props.key = element.key === null ? murmurhash.x64.hash128(JSON.stringify(response)) : element.key.toString();
     await new Promise((resolve, reject) => {
       this.client.record.setData(response.key, response, (error) => {
         if (error) {

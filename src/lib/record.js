@@ -1,7 +1,8 @@
 // @flow 
 
 import DeepstreamClient from 'deepstream.io-client-js';
-import murmurhash from './murmurhash';
+import murmurhash from 'murmurhash3js';
+
 
 const parameterRegex = /(^|\/):[a-z_]\/?/;
 
@@ -33,7 +34,7 @@ export const subscribe = (client:DeepstreamClient, defaultValue: any, names:Arra
     }
   });
   let useCache = true;
-  const cacheKey = murmurhash(JSON.stringify(cacheKeyValues), 1).toString(36);
+  const cacheKey = murmurhash.x64.hash128(JSON.stringify(cacheKeyValues));
   const localStorageValue = localStorage.getItem(cacheKey);
   let value = localStorageValue ? JSON.parse(localStorageValue) : defaultValue;
   const recordValues = new Array(records.length);
