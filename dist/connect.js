@@ -4,7 +4,25 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = require('babel-runtime/helpers/createClass');
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = require('babel-runtime/helpers/inherits');
+
+var _inherits3 = _interopRequireDefault(_inherits2);
 
 var _deepstream = require('deepstream.io-client-js');
 
@@ -18,31 +36,23 @@ var _record = require('../src/lib/record');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 exports.default = function (client, parameters, Component) {
   var _class, _temp;
 
   return _temp = _class = function (_React$PureComponent) {
-    _inherits(ConnectedComponent, _React$PureComponent);
+    (0, _inherits3.default)(ConnectedComponent, _React$PureComponent);
 
     function ConnectedComponent(props) {
-      _classCallCheck(this, ConnectedComponent);
+      (0, _classCallCheck3.default)(this, ConnectedComponent);
 
-      var _this = _possibleConstructorReturn(this, (ConnectedComponent.__proto__ || Object.getPrototypeOf(ConnectedComponent)).call(this, props));
+      var _this = (0, _possibleConstructorReturn3.default)(this, (ConnectedComponent.__proto__ || Object.getPrototypeOf(ConnectedComponent)).call(this, props));
 
       _this.state = {};
       _this.subscriptions = {};
       return _this;
     }
 
-    _createClass(ConnectedComponent, [{
+    (0, _createClass3.default)(ConnectedComponent, [{
       key: 'componentWillMount',
       value: function componentWillMount() {
         var _this2 = this;
@@ -51,7 +61,7 @@ exports.default = function (client, parameters, Component) {
           var subscription = (0, _record.subscribe)(client, _this2.props[name][0], _this2.props[name][1], parameters);
           subscription.addCallback(function (value) {
             if (_this2.state[name] !== value) {
-              _this2.setState(_defineProperty({}, name, value));
+              _this2.setState((0, _defineProperty3.default)({}, name, value));
             }
           });
           _this2.subscriptions[name] = subscription;
@@ -72,7 +82,6 @@ exports.default = function (client, parameters, Component) {
         return _react2.default.createElement(Component, this.state);
       }
     }]);
-
     return ConnectedComponent;
   }(_react2.default.PureComponent), _class.displayName = 'Connected' + (Component.displayName || Component.name), _temp;
 };

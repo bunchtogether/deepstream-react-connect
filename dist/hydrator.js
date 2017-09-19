@@ -4,7 +4,29 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _regenerator = require('babel-runtime/regenerator');
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
+
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+
+var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = require('babel-runtime/helpers/createClass');
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = require('babel-runtime/helpers/inherits');
+
+var _inherits3 = _interopRequireDefault(_inherits2);
 
 var _deepstream = require('deepstream.io-client-js');
 
@@ -14,37 +36,27 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _murmurhash = require('./lib/murmurhash');
+var _murmurhash3js = require('murmurhash3js');
 
-var _murmurhash2 = _interopRequireDefault(_murmurhash);
+var _murmurhash3js2 = _interopRequireDefault(_murmurhash3js);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 var Text = function (_React$Component) {
-  _inherits(Text, _React$Component);
+  (0, _inherits3.default)(Text, _React$Component);
 
   function Text() {
-    _classCallCheck(this, Text);
-
-    return _possibleConstructorReturn(this, (Text.__proto__ || Object.getPrototypeOf(Text)).apply(this, arguments));
+    (0, _classCallCheck3.default)(this, Text);
+    return (0, _possibleConstructorReturn3.default)(this, (Text.__proto__ || Object.getPrototypeOf(Text)).apply(this, arguments));
   }
 
-  _createClass(Text, [{
+  (0, _createClass3.default)(Text, [{
     key: 'render',
     // eslint-disable-line react/prefer-stateless-function
     value: function render() {
       return null;
     }
   }]);
-
   return Text;
 }(_react2.default.Component);
 
@@ -65,7 +77,7 @@ var Hydrator = function () {
   function Hydrator(client, components) {
     var _this2 = this;
 
-    _classCallCheck(this, Hydrator);
+    (0, _classCallCheck3.default)(this, Hydrator);
 
     this.client = client;
     this.components = {};
@@ -74,14 +86,14 @@ var Hydrator = function () {
     });
   }
 
-  _createClass(Hydrator, [{
+  (0, _createClass3.default)(Hydrator, [{
     key: 'dehydrate',
     value: function () {
-      var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee(element) {
+      var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(element) {
         var _this3 = this;
 
         var response, childPromises;
-        return regeneratorRuntime.wrap(function _callee$(_context) {
+        return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
@@ -104,7 +116,7 @@ var Hydrator = function () {
               case 7:
                 response.props.children = _context.sent;
 
-                response.key = response.props.key = element.key === null ? (0, _murmurhash2.default)(JSON.stringify(response), 1).toString(36) : element.key.toString();
+                response.key = response.props.key = element.key === null ? _murmurhash3js2.default.x64.hash128(JSON.stringify(response)) : element.key.toString();
                 _context.next = 11;
                 return new Promise(function (resolve, reject) {
                   _this3.client.record.setData(response.key, response, function (error) {
@@ -143,14 +155,14 @@ var Hydrator = function () {
       var children = {};
       var childUnsubscribes = {};
       var valueListener = function () {
-        var _ref2 = _asyncToGenerator(regeneratorRuntime.mark(function _callee3(value) {
+        var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee3(value) {
           var setCache = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
           var componentType, props;
-          return regeneratorRuntime.wrap(function _callee3$(_context3) {
+          return _regenerator2.default.wrap(function _callee3$(_context3) {
             while (1) {
               switch (_context3.prev = _context3.next) {
                 case 0:
-                  if (!(!value && !localStorageValue)) {
+                  if (value) {
                     _context3.next = 3;
                     break;
                   }
@@ -159,6 +171,15 @@ var Hydrator = function () {
                   return _context3.abrupt('return');
 
                 case 3:
+                  if (!(Object.keys(value).length === 0)) {
+                    _context3.next = 6;
+                    break;
+                  }
+
+                  callback(null);
+                  return _context3.abrupt('return');
+
+                case 6:
                   if (setCache) {
                     setImmediate(function () {
                       localStorage.setItem(key, JSON.stringify(value));
@@ -167,22 +188,22 @@ var Hydrator = function () {
                   componentType = _this4.components[value.type] || value.type;
 
                   if (!(componentType === 'Text')) {
-                    _context3.next = 8;
+                    _context3.next = 11;
                     break;
                   }
 
                   callback(value.props.value);
                   return _context3.abrupt('return');
 
-                case 8:
+                case 11:
                   props = Object.assign({}, value.props);
 
                   delete props.children;
-                  _context3.next = 12;
+                  _context3.next = 15;
                   return Promise.all(Object.keys(children).map(function () {
-                    var _ref3 = _asyncToGenerator(regeneratorRuntime.mark(function _callee2(childKey) {
+                    var _ref3 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2(childKey) {
                       var unsubscribeChild;
-                      return regeneratorRuntime.wrap(function _callee2$(_context2) {
+                      return _regenerator2.default.wrap(function _callee2$(_context2) {
                         while (1) {
                           switch (_context2.prev = _context2.next) {
                             case 0:
@@ -191,7 +212,7 @@ var Hydrator = function () {
                                 break;
                               }
 
-                              unsubscribeChild = childUnsubscribes[childKey].unsubscribe;
+                              unsubscribeChild = childUnsubscribes[childKey];
 
                               delete childUnsubscribes[childKey];
                               delete children[childKey];
@@ -211,7 +232,7 @@ var Hydrator = function () {
                     };
                   }()));
 
-                case 12:
+                case 15:
                   value.props.children.forEach(function (childKey) {
                     childUnsubscribes[childKey] = _this4.hydrate(childKey, function (child) {
                       children[childKey] = child;
@@ -224,7 +245,7 @@ var Hydrator = function () {
                     return children[ck] || null;
                   })));
 
-                case 14:
+                case 17:
                 case 'end':
                   return _context3.stop();
               }
@@ -242,8 +263,8 @@ var Hydrator = function () {
       } else {
         record.subscribe(valueListener, true);
       }
-      return _asyncToGenerator(regeneratorRuntime.mark(function _callee4() {
-        return regeneratorRuntime.wrap(function _callee4$(_context4) {
+      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee4() {
+        return _regenerator2.default.wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
@@ -295,7 +316,6 @@ var Hydrator = function () {
       }));
     }
   }]);
-
   return Hydrator;
 }();
 
