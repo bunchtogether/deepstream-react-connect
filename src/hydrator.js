@@ -31,7 +31,7 @@ export default class Hydrator {
     this.client = client;
     this.components = {};
     components.forEach((Component) => {
-      this.components[Component.name] = Component;
+      this.components[Component.displayName || Component.name] = Component;
     });
   }
   async dehydrate(element:Element<*>):Promise<string> {

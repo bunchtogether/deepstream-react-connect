@@ -82,7 +82,7 @@ var Hydrator = function () {
     this.client = client;
     this.components = {};
     components.forEach(function (Component) {
-      _this2.components[Component.name] = Component;
+      _this2.components[Component.displayName || Component.name] = Component;
     });
   }
 
