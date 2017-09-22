@@ -23,6 +23,9 @@ export default (client:DeepstreamClient, parameters:{[string]:string}, Component
   }
   componentWillMount() {
     Object.keys(this.props).forEach((name) => {
+      if(name === "children") {
+        return;
+      }
       const subscription = subscribe(client, this.props[name][0], this.props[name][1], parameters);
       subscription.addCallback((value:any) => {
         if (this.state[name] !== value) {

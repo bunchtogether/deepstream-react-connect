@@ -58,6 +58,9 @@ exports.default = function (client, parameters, Component) {
         var _this2 = this;
 
         Object.keys(this.props).forEach(function (name) {
+          if (name === "children") {
+            return;
+          }
           var subscription = (0, _record.subscribe)(client, _this2.props[name][0], _this2.props[name][1], parameters);
           subscription.addCallback(function (value) {
             if (_this2.state[name] !== value) {
