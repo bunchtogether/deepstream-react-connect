@@ -32,7 +32,7 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _record = require('../src/lib/record');
+var _record = require('./lib/record');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -58,7 +58,7 @@ exports.default = function (client, parameters, Component) {
         var _this2 = this;
 
         Object.keys(this.props).forEach(function (name) {
-          if (name === "children") {
+          if (name === 'children') {
             return;
           }
           var subscription = (0, _record.subscribe)(client, _this2.props[name][0], _this2.props[name][1], parameters);

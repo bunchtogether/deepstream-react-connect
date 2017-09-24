@@ -3,7 +3,7 @@
 import DeepstreamClient from 'deepstream.io-client-js';
 import type { ComponentType } from 'react';
 import React from 'react';
-import { subscribe } from '../src/lib/record';
+import { subscribe } from './lib/record';
 
 type Props = {
   [string]:[any, Array<string>]
@@ -23,7 +23,7 @@ export default (client:DeepstreamClient, parameters:{[string]:string}, Component
   }
   componentWillMount() {
     Object.keys(this.props).forEach((name) => {
-      if(name === "children") {
+      if (name === 'children') {
         return;
       }
       const subscription = subscribe(client, this.props[name][0], this.props[name][1], parameters);
