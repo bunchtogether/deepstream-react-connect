@@ -36,11 +36,11 @@ client.record.setData(`${device_id}/text`, {value: "Device Text"});
 // Renders <div>Device Text</div>
 ```
 
-### Marshaller
+### Marshaler
 ```js
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Marshaller } from 'deepstream-react-connect';
+import { Marshaler } from 'deepstream-react-connect';
 
 class ExampleComponent extends React.Component {
   render() {
@@ -48,11 +48,11 @@ class ExampleComponent extends React.Component {
   }
 }
 
-const marshaller = new Marshaller([ExampleComponent]);
+const marshaler = new Marshaler([ExampleComponent]);
 
 const element = (<ExampleComponent key="exampleKey"><span>Example Text</span></ExampleComponent>);
 
-const instance = marshaller.marshall(component);
+const instance = marshaler.marshal(component);
 
 //{
 //  "type": "ExampleComponent",
@@ -77,7 +77,7 @@ const instance = marshaller.marshall(component);
 //  "key": "exampleKey"
 //}
 
-const element = marshaller.unmarshall(instance);
+const element = marshaler.unmarshal(instance);
 
 ReactDOM.render(rehydratedElement, document.getElementById("container"));
 // Renders <div><span>Example Text</span></div>  
@@ -123,7 +123,7 @@ dehydrateThenRehydrate();
 
 ```
 
-### Hydrator + Marshaller
+### Hydrator + Marshaler
 ```js
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -138,15 +138,14 @@ class ExampleComponent extends React.Component {
 
 const client = deepstream("127.0.0.1:6020").login();
 
-const marshaller = new Marshaller([ExampleComponent]);
+const marshaler = new Marshaler([ExampleComponent]);
 
 const element = (<ExampleComponent key="exampleKey"><span>Example Text</span></ExampleComponent>);
 
-const instance = marshaller.marshall(component);
-
+const instance = marshaler.marshal(component);
 
 // Array containing ExampleComponent 
-// is not required if marshalling is done earlier.
+// is not required if marshaling is done earlier.
 const hydrator = new Hydrator(client); 
 
 hydrator.store(instance).then(() => console.log("Instance stored."));

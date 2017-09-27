@@ -2,16 +2,16 @@
 
 import type { Element, ComponentType } from 'react';
 import DeepstreamClient from 'deepstream.io-client-js';
-import type { Instance } from './marshaller';
-import Marshaller from './marshaller';
+import type { Instance } from './marshaler';
+import Marshaler from './marshaler';
 
 export default class Hydrator {
   client: DeepstreamClient;
-  marshaller: Marshaller;
+  marshaler: Marshaler;
 
   constructor(client:DeepstreamClient, components?:Array<ComponentType<*>> = []) {
     this.client = client;
-    this.marshaller = new Marshaller(components);
+    this.marshaler = new Marshaler(components);
   }
 
   async store(instance: Instance):Promise<string> {
@@ -30,7 +30,7 @@ export default class Hydrator {
   }
 
   async dehydrate(element:Element<any>):Promise<string> {
-    const instance = this.marshaller.marshall(element);
+    const instance = this.marshaler.marshal(element);
     await this.store(instance);
     return instance.key;
   }
@@ -104,6 +104,6 @@ export default class Hydrator {
   }
 
   hydrate(key:string, callback: Function):Function {
-    return this.listen(key, (instance) => callback(instance ? this.marshaller.unmarshall(instance) : null));
+    return this.listen(key, (instance) => callback(instance ? this.marshaler.unmarshal(instance) : null));
   }
 }
