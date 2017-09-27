@@ -36,6 +36,55 @@ client.record.setData(`${device_id}/text`, {value: "Device Text"});
 // Renders <div>Device Text</div>
 ```
 
+### Marshaller
+```js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Marshaller } from 'deepstream-react-connect';
+
+class ExampleComponent extends React.Component {
+  render() {
+    return (<div {...this.props} />);
+  }
+}
+
+const marshaller = new Marshaller([ExampleComponent]);
+
+const element = (<ExampleComponent key="exampleKey"><span>Example Text</span></ExampleComponent>);
+
+const instance = marshaller.marshall(component);
+
+//{
+//  "type": "ExampleComponent",
+//  "props": {},
+//  "children": [
+//    {
+//      "type": "span",
+//      "props": {},
+//      "children": [
+//        {
+//          "type": "Text",
+//          "props": {
+//            "value": "Example Text"
+//          },
+//          "children": [],
+//          "key": "230d9fec7d745d58a0de0558b5d5b6ac"
+//        }
+//      ],
+//      "key": "4045ccd70148bf5a19f5f715c62c6944"
+//    }
+//  ],
+//  "key": "exampleKey"
+//}
+
+const element = marshaller.unmarshall(instance);
+
+ReactDOM.render(rehydratedElement, document.getElementById("container"));
+// Renders <div><span>Example Text</span></div>  
+
+```
+
+
 ### Hydrator
 ```js
 import React from 'react';
@@ -68,9 +117,42 @@ const dehydrateThenRehydrate = async () => {
     // Renders <div><span>Example Text</span></div>  
     unsubscribeHydrator(); 
   });
-
 }
 
 dehydrateThenRehydrate();
+
 ```
+
+### Hydrator + Marshaller
+```js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Hydrator } from 'deepstream-react-connect';
+import deepstream from 'deepstream.io-client-js';
+
+class ExampleComponent extends React.Component {
+  render() {
+    return (<div {...this.props} />);
+  }
+}
+
+const client = deepstream("127.0.0.1:6020").login();
+
+const marshaller = new Marshaller([ExampleComponent]);
+
+const element = (<ExampleComponent key="exampleKey"><span>Example Text</span></ExampleComponent>);
+
+const instance = marshaller.marshall(component);
+
+
+// Array containing ExampleComponent 
+// is not required if marshalling is done earlier.
+const hydrator = new Hydrator(client); 
+
+hydrator.store(instance).then(() => console.log("Instance stored."));
+
+
+```
+
+
 

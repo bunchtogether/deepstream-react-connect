@@ -29,6 +29,6 @@ flow/
 
 [options]
 
-traces=3
+
 
 module.name_mapper='.*\(.scss\)' -> 'empty/object'

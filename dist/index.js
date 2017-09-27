@@ -22,4 +22,13 @@ Object.defineProperty(exports, 'Hydrator', {
   }
 });
 
+var _marshaller = require('./marshaller');
+
+Object.defineProperty(exports, 'Marshaller', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_marshaller).default;
+  }
+});
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }

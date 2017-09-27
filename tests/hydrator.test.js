@@ -116,6 +116,34 @@ test('Update the value of a node by key.', async () => {
 });
 
 
+test('Remove a child from an element', async () => {
+  const key = `key-${uuid.v4()}`;
+  const textKey = `text-${uuid.v4()}`;
+  const defaultTextValue = uuid.v4();
+  const hydrator = new Hydrator(client, []);
+  let rehydratedElementData;
+  const unsubscribeHydrator = hydrator.hydrate(key, async (rehydratedElement) => {
+    if (rehydratedElement === null) {
+      return;
+    }
+    rehydratedElementData = renderer.create(rehydratedElement).toJSON();
+  });
+  const element = <div key={key}><span key={textKey}>{defaultTextValue}</span></div>;
+  const elementData = renderer.create(element).toJSON();
+  await hydrator.dehydrate(element);
+  while (!deepEqual(elementData, rehydratedElementData)) {
+    await new Promise((resolve) => setTimeout(resolve, 100));
+  }
+  const updatedElement = <div key={key}>{defaultTextValue}</div>;
+  const updatedElementData = renderer.create(updatedElement).toJSON();
+  await hydrator.dehydrate(updatedElement);
+  while (!deepEqual(updatedElementData, rehydratedElementData)) {
+    await new Promise((resolve) => setTimeout(resolve, 100));
+  }
+  await unsubscribeHydrator();
+});
+
+
 test('Get cached node', async () => {
   const key = uuid.v4();
   const element = <div key={key}>{uuid.v4()}</div>;
@@ -134,16 +162,21 @@ test('Get cached node', async () => {
       }
     });
   });
+  let unsubscribeHydratorB;
   await new Promise((resolve) => {
-    const unsubscribeHydrator = hydrator.hydrate(key, async (rehydratedElement) => {
+    unsubscribeHydratorB = hydrator.hydrate(key, async (rehydratedElement) => {
       if (rehydratedElement === null) {
         return;
       }
       const rehydratedElementData = renderer.create(rehydratedElement).toJSON();
-      await unsubscribeHydrator();
       expect(elementData).toEqual(rehydratedElementData);
       resolve();
     });
   });
+  if (unsubscribeHydratorB) {
+    await unsubscribeHydratorB();
+  } else {
+    console.log('NO unsubscribeHydratorB');
+  }
 });
 
