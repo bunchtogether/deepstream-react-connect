@@ -22,12 +22,12 @@ Object.defineProperty(exports, 'Hydrator', {
   }
 });
 
-var _marshaller = require('./marshaller');
+var _marshaler = require('./marshaler');
 
-Object.defineProperty(exports, 'Marshaller', {
+Object.defineProperty(exports, 'Marshaler', {
   enumerable: true,
   get: function get() {
-    return _interopRequireDefault(_marshaller).default;
+    return _interopRequireDefault(_marshaler).default;
   }
 });
 

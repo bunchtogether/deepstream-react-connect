@@ -24,9 +24,9 @@ var _deepstream = require('deepstream.io-client-js');
 
 var _deepstream2 = _interopRequireDefault(_deepstream);
 
-var _marshaller = require('./marshaller');
+var _marshaler = require('./marshaler');
 
-var _marshaller2 = _interopRequireDefault(_marshaller);
+var _marshaler2 = _interopRequireDefault(_marshaler);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -36,7 +36,7 @@ var Hydrator = function () {
     (0, _classCallCheck3.default)(this, Hydrator);
 
     this.client = client;
-    this.marshaller = new _marshaller2.default(components);
+    this.marshaler = new _marshaler2.default(components);
   }
 
   (0, _createClass3.default)(Hydrator, [{
@@ -93,7 +93,7 @@ var Hydrator = function () {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                instance = this.marshaller.marshall(element);
+                instance = this.marshaler.marshal(element);
                 _context2.next = 3;
                 return this.store(instance);
 
@@ -225,7 +225,7 @@ var Hydrator = function () {
       var _this3 = this;
 
       return this.listen(key, function (instance) {
-        return callback(instance ? _this3.marshaller.unmarshall(instance) : null);
+        return callback(instance ? _this3.marshaler.unmarshal(instance) : null);
       });
     }
   }]);
