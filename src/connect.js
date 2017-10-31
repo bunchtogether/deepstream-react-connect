@@ -21,12 +21,16 @@ export default (client:DeepstreamClient, parameters:{[string]:string}, Component
     this.state = {};
     this.subscriptions = {};
   }
-  componentWillMount() {
-    Object.keys(this.props).forEach((name) => {
+  componentWillReceiveProps(nextProps:Props) {
+    this.unsetSubscriptions();
+    this.setSubscriptions(nextProps);
+  }
+  setSubscriptions(props:Props) {
+    Object.keys(props).forEach((name) => {
       if (name === 'children') {
         return;
       }
-      const subscription = subscribe(client, this.props[name][0], this.props[name][1], parameters);
+      const subscription = subscribe(client, props[name][0], props[name][1], parameters);
       subscription.addCallback((value:any) => {
         if (this.state[name] !== value) {
           this.setState({
@@ -35,9 +39,15 @@ export default (client:DeepstreamClient, parameters:{[string]:string}, Component
         }
       });
       this.subscriptions[name] = subscription;
-    });
+    });    
+  }
+  componentWillMount() {
+    this.setSubscriptions(this.props);
   }
   componentWillUnmount() {
+    this.unsetSubscriptions();
+  }
+  unsetSubscriptions() {
     Object.keys(this.subscriptions).forEach((name) => this.subscriptions[name].close());
   }
   subscriptions: {
