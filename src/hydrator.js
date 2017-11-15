@@ -68,13 +68,15 @@ export default class Hydrator {
           unsubscribeChild();
         }
       });
-      value.children.forEach((childKey:string) => {
-        childUnsubscribes[childKey] = this.listen(childKey, (child) => {
-          children[childKey] = child;
-          instance.children = value.children.map((ck) => children[ck]);
-          callback(instance);
+      if (value.children) {
+        value.children.forEach((childKey:string) => {
+          childUnsubscribes[childKey] = this.listen(childKey, (child) => {
+            children[childKey] = child;
+            instance.children = value.children.map((ck) => children[ck]);
+            callback(instance);
+          });
         });
-      });
+      }
       callback(instance);
     };
 
